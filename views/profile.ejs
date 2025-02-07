@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile - OAuth Security Lab</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="profile-container">
+        <h1>Welcome, <%= user.displayName %></h1>
+        <div class="profile-info">
+            <img src="<%= user.photos?.[0]?.value || '/default-avatar.png' %>" alt="Profile Picture">
+            <p>Provider: <%= user.provider %></p>
+            <p>ID: <%= user.id %></p>
+            <p>Email: <%= user.emails?.[0]?.value || 'Not provided' %></p>
+        </div>
+        <a href="/auth/logout" class="logout-button">Logout</a>
+    </div>
+</body>
+</html>
