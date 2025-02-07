@@ -18,7 +18,7 @@ passport.deserializeUser((user, done) => {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:3010/auth/google/callback"
+    callbackURL: process.env.GOOGLE_CALLBACK_URL || "http://localhost:3010/auth/google/callback"
 }, async (accessToken, refreshToken, profile, done) => {
     // In a real app, you would save user to database
     return done(null, profile);
@@ -28,7 +28,7 @@ passport.use(new GoogleStrategy({
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: "http://localhost:3010/auth/facebook/callback",
+    callbackURL: process.env.FACEBOOK_CALLBACK_URL || "http://localhost:3010/auth/facebook/callback",
     profileFields: ['id', 'displayName', 'photos', 'email']
 }, async (accessToken, refreshToken, profile, done) => {
     return done(null, profile);
@@ -38,7 +38,8 @@ passport.use(new FacebookStrategy({
 passport.use(new TwitterStrategy({
     consumerKey: process.env.TWITTER_API_KEY,
     consumerSecret: process.env.TWITTER_API_SECRET,
-    callbackURL: "/auth/twitter/callback"
+    callbackURL: process.env.TWITTER_CALLBACK_URL || "http://localhost:3010/auth/twitter/callback",
+    includeEmail: true
 }, async (token, tokenSecret, profile, done) => {
     return done(null, profile);
 }));
@@ -47,7 +48,7 @@ passport.use(new TwitterStrategy({
 passport.use(new MicrosoftStrategy({
     clientID: process.env.MICROSOFT_CLIENT_ID,
     clientSecret: process.env.MICROSOFT_CLIENT_SECRET,
-    callbackURL: "http://localhost:3010/auth/microsoft/callback",
+    callbackURL: process.env.MICROSOFT_CALLBACK_URL || "http://localhost:3010/auth/microsoft/callback",
     scope: ['user.read', 'profile', 'email', 'openid']
 }, async (accessToken, refreshToken, profile, done) => {
     // In a real app, you would save user to database
